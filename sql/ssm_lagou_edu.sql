@@ -1,0 +1,8 @@
+DROP DATABASE IF EXISTS ssm_lagou_edu;
+CREATE DATABASE ssm_lagou_edu;
+USE ssm_lagou_edu;
+CREATE TABLE test(
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(32) DEFAULT NULL,
+	PRIMARY KEY(id) 
+) CHARACTER SET = utf8;

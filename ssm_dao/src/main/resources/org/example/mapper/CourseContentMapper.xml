@@ -1,0 +1,96 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.CourseContentMapper">
+
+    <resultMap id="sessionAndLessonResultMap" type="org.example.domain.CourseSection">
+        <id property="id" column="id"></id>
+        <result property="courseId" column="course_id"></result>
+        <result property="sectionName" column="section_name"></result>
+        <result property="description" column="description"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="isDel" column="is_del"></result>
+        <result property="orderNum" column="order_num"></result>
+        <collection property="lessonList" ofType="org.example.domain.CourseLesson">
+            <id property="id" column="lesson_id"></id>
+            <result property="courseId" column="course_id"></result>
+            <result property="sectionId" column="section_id"></result>
+            <result property="theme" column="theme"></result>
+            <result property="duration" column="duration"></result>
+            <result property="isFree" column="is_free"></result>
+            <result property="createTime" column="lesson_create_time"></result>
+            <result property="updateTime" column="lesson_update_time"></result>
+            <result property="isDel" column="lesson_is_del"></result>
+            <result property="orderNum" column="lesson_order_num"></result>
+        </collection>
+    </resultMap>
+
+    <insert id="saveSection" parameterType="org.example.domain.CourseSection">
+        insert into course_section (
+            course_id,
+            section_name,
+            description,
+            order_num,
+            status,
+            create_time,
+            update_time
+        )values(
+            #{courseId},
+            #{sectionName},
+            #{description},
+            #{orderNum},
+            #{status},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="updateSection" parameterType="org.example.domain.CourseSection">
+        update course_section
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sectionName != null and sectionName != ''">
+                section_name = #{sectionName},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="orderNum != null and orderNum != ''">
+                order_num = #{orderNum},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="findSectionAndLessonByCourseId" parameterType="int" resultMap="sessionAndLessonResultMap">
+         SELECT
+          cs.*,
+          cl.id lesson_id,
+          cl.course_id,
+          cl.section_id,
+          cl.theme,
+          cl.duration,
+          cl.create_time lesson_create_time,
+          cl.update_time lesson_update_time,
+          cl.is_del lesson_is_del,
+          cl.order_num lesson_order_num,
+          cl.status lesson_status
+        FROM
+          course_section cs
+          LEFT JOIN course_lesson cl
+            ON cl.section_id = cs.id
+        WHERE cs.course_id = #{id}
+        ORDER BY cs.order_num;
+    </select>
+
+    <select id="findCourseByCourseId" resultType="org.example.domain.Course">
+        select id,course_name from course where id = #{id}
+    </select>
+</mapper>
