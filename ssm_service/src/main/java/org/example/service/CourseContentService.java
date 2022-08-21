@@ -18,7 +18,7 @@ public interface CourseContentService {
      * @param id
      * @return
      */
-    public List<CourseSection> findSectionAndLessonByCourseId(Integer id);
+    List<CourseSection> findSectionAndLessonByCourseId(Integer id);
 
     /**
      * 根据课程id查询课程信息
@@ -26,19 +26,19 @@ public interface CourseContentService {
      * @param id
      * @return
      */
-    public Course findCourseByCourseId(Integer id);
+    Course findCourseByCourseId(Integer id);
 
     /**
      * 添加章节信息
      *
      * @param section
      */
-    public void saveSection(CourseSection section);
+    void saveSection(CourseSection section);
 
     /**
      * 更新章节信息
      *
      * @param section
      */
-    public void updateSection(CourseSection section);
+    void updateSection(CourseSection section);
 }

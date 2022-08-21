@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface TestService {
 
-    public List<Test> findAll();
+    List<Test> findAll();
 }

@@ -10,3 +10,9 @@
 
 # upload目录部署之后才能访问已上传的文件
 ![alt 图片文件夹部署.PNG](images/图片文件夹部署.PNG "图片文件夹部署.PNG")
+
+# Integer类型默认null，int类型默认0，在数据库插入默认值时要注意not null字段   
+
+# 分页插件Mybatis-PageHelper新版的使用
+
+https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md

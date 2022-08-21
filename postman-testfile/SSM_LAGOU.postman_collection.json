@@ -278,6 +278,217 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "广告模块",
+			"item": [
+				{
+					"name": "findAllPromotionSpace",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionSpace/findAllPromotionSpace",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionSpace",
+								"findAllPromotionSpace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveOrUpdatePromotionSpace",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":173,\r\n\t\"name\": \"页面头部广告位173\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionSpace/saveOrUpdatePromotionSpace",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionSpace",
+								"saveOrUpdatePromotionSpace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findPromotionSpaceById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionSpace/findPromotionSpaceById?id=172",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionSpace",
+								"findPromotionSpaceById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "172"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllPromotionAdByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionAd/findAllPromotionAdByPage?currentPage=1&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionAd",
+								"findAllPromotionAdByPage"
+							],
+							"query": [
+								{
+									"key": "currentPage",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "promotionAdUpload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ben/Pictures/程序员代码面试指南.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionAd/promotionAdUpload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionAd",
+								"promotionAdUpload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePromotionAdStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/promotionAd/updatePromotionAdStatus?id=1074&status=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"promotionAd",
+								"updatePromotionAdStatus"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1074"
+								},
+								{
+									"key": "status",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户模块",
+			"item": [
+				{
+					"name": "findAllUserByPage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"currentPage\": \"1\",\r\n\t\"pageSize\": \"10\",\r\n\t\"endCreateTime\": \"2020-07-13\",\r\n\t\"startCreateTime\": \"2020-07-09\",\r\n\t\"username\": \"15321919577\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/user/findAllUserByPage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"user",
+								"findAllUserByPage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

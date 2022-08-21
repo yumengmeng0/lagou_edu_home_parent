@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.PromotionSpaceMapper">
+
+    <insert id="savePromotionSpace" parameterType="org.example.domain.PromotionSpace">
+        insert into promotion_space(name, spaceKey, createTime, updateTime, isDel)
+        values(#{name}, #{spaceKey}, #{createTime}, #{updateTime}, #{isDel})
+    </insert>
+
+    <update id="updatePromotionSpace" parameterType="org.example.domain.PromotionSpace">
+        update promotion_space
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name !=''">
+                name =#{name},
+            </if>
+            <if test="updateTime != null">
+                updateTime =#{updateTime},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id !=''">
+                id =#{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="findAllPromotionSpace" resultType="org.example.domain.PromotionSpace">
+        select * from promotion_space
+    </select>
+
+    <select id="findPromotionSpaceById" resultType="org.example.domain.PromotionSpace" parameterType="int">
+         select id, name from promotion_space where id =#{id}
+    </select>
+
+</mapper>

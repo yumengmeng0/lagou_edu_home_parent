@@ -20,21 +20,21 @@ public interface CourseService {
      * @param courseVo
      * @return
      */
-    public List<Course> findCourseByCondition(CourseVO courseVo);
+    List<Course> findCourseByCondition(CourseVO courseVo);
 
     /**
      * 保存课程及教师信息
      *
      * @param courseVo
      */
-    public void saveCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
+    void saveCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
 
     /**
      * 更新课程及讲师信息
      *
      * @param courseVo
      */
-    public void updateCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
+    void updateCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
 
     /**
      * 根据课程id查询课程和讲师信息
@@ -42,13 +42,14 @@ public interface CourseService {
      * @param id
      * @return
      */
-    public CourseVO findCourseById(Integer id);
+    CourseVO findCourseById(Integer id);
 
     /**
      * 根据课程id修改课程状态
+     *
      * @param id
      * @param status
      */
-    public void updateCourseStatus(Integer id, Integer status);
+    void updateCourseStatus(Integer id, Integer status);
 
 }

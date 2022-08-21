@@ -19,35 +19,35 @@ public interface CourseMapper {
      * @param courseVo
      * @return
      */
-    public List<Course> findCourseByCondition(CourseVO courseVo);
+    List<Course> findCourseByCondition(CourseVO courseVo);
 
     /**
      * 新增课程
      *
      * @param course
      */
-    public void saveCourse(Course course);
+    void saveCourse(Course course);
 
     /**
      * 更新课程信息
      *
      * @param course
      */
-    public void updateCourse(Course course);
+    void updateCourse(Course course);
 
     /**
      * 新增老师
      *
      * @param teacher
      */
-    public void saveTeacher(Teacher teacher);
+    void saveTeacher(Teacher teacher);
 
     /**
      * 更新讲师信息
      *
      * @param teacher
      */
-    public void updateTeacher(Teacher teacher);
+    void updateTeacher(Teacher teacher);
 
     /**
      * 根据课程id查询课程和讲师信息
@@ -55,7 +55,7 @@ public interface CourseMapper {
      * @param id
      * @return
      */
-    public CourseVO findCourseById(Integer id);
+    CourseVO findCourseById(Integer id);
 
 
     /**
@@ -63,5 +63,5 @@ public interface CourseMapper {
      *
      * @param course
      */
-    public void updateCourseStatus(Course course);
+    void updateCourseStatus(Course course);
 }
