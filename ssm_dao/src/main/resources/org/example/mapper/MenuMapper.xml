@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.MenuMapper">
+
+    <resultMap id="menuResultMap" type="org.example.domain.Menu">
+        <id property="id" column="id"></id>
+        <result property="href" column="href"></result>
+        <result property="icon" column="icon"></result>
+        <result property="name" column="name"></result>
+        <result property="description" column="description"></result>
+        <result property="orderNum" column="order_num"></result>
+        <result property="shown" column="shown"></result>
+        <result property="level" column="level"></result>
+        <result property="createdTime" column="created_time"></result>
+        <result property="updatedTime" column="updated_time"></result>
+        <result property="createdBy" column="created_by"></result>
+        <result property="updatedBy" column="updated_by"></result>
+        <!--
+            ofType集合的元素的类型
+        -->
+        <collection property="subMenuList" select="findSubMenuByPid" column="id"
+                    ofType="org.example.domain.Menu">
+        </collection>
+    </resultMap>
+
+    <select id="findSubMenuByPid" resultMap="menuResultMap" parameterType="int">
+        select * from menu where parent_id = #{id}
+    </select>
+
+    <select id="findAllMenu" resultType="org.example.domain.Menu">
+        select * from menu
+    </select>
+
+    <select id="findMenuById" resultType="org.example.domain.Menu" parameterType="int">
+         select * from menu where id = #{id}
+    </select>
+
+</mapper>

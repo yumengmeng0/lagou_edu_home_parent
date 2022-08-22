@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.RoleMapper">
+
+    <select id="findAllRole" resultType="org.example.domain.Role" parameterType="org.example.domain.Role">
+        select * from roles
+        <where>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="findMenuByRoleId" resultType="int" parameterType="int">
+         SELECT
+          m.id
+        FROM
+          roles r
+          INNER JOIN role_menu_relation rm
+            ON r.id = rm.role_id
+          INNER JOIN menu m
+            ON m.id = rm.menu_id
+        WHERE r.id = #{roleId};
+    </select>
+
+    <insert id="allocateRoleContextMenu" parameterType="org.example.domain.RoleMenuRelation">
+        insert into role_menu_relation(menu_id,role_id,created_time,updated_time,created_by,updated_by)
+        values(#{menuId}, #{roleId}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+    </insert>
+
+    <!--    根据role_id删除在中间表与菜单的关联关系-->
+    <delete id="deleteRoleContextMenu" parameterType="int">
+        delete from role_menu_relation where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRole" parameterType="int">
+        delete from roles where id = #{roleId}
+    </delete>
+
+</mapper>

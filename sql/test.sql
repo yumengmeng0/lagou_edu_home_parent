@@ -57,3 +57,6 @@ FROM
 WHERE cs.course_id = 7
 ORDER BY cs.order_num;
 
+
+select * from promotion_space;
+

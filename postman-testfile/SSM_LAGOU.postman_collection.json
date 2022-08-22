@@ -489,6 +489,245 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "权限控制模块",
+			"item": [
+				{
+					"name": "findAllRole",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"超级管理员\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/role/findAllRole",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"role",
+								"findAllRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findMenuByRoleId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/role/findMenuByRoleId?roleId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"role",
+								"findMenuByRoleId"
+							],
+							"query": [
+								{
+									"key": "roleId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "roleContextMenu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"roleId\": 1, \r\n\t\"menuIdList\": [7, 8, 9, 15, 16, 17, 18]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/role/roleContextMenu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"role",
+								"roleContextMenu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/role/deleteRole?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"role",
+								"deleteRole"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "menu/findAllMenu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/menu/findAllMenu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"menu",
+								"findAllMenu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findMenuInfoById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/menu/findMenuInfoById?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"menu",
+								"findMenuInfoById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resource/findAllResourceByPage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"categoryId\": 1,\r\n\t\"currentPage\": 1,\r\n\t\"name\": \"获取所有角色\",\r\n\t\"pageSize\": 5,\r\n\t\"url\": \"/boss/role/all\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/resource/findAllResource",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"resource",
+								"findAllResource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "role/findAllMenu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/role/findAllMenu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"role",
+								"findAllMenu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resourceCategory/findAllResourceCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ssm_web/resourceCategory/findAllResourceCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ssm_web",
+								"resourceCategory",
+								"findAllResourceCategory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
