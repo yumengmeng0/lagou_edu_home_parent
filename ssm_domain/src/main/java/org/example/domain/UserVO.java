@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: ymm
@@ -27,5 +28,8 @@ public class UserVO {
     // 注册结束时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endCreateTime;
+
+    private Integer userId;
+    private List<Integer> roleIdList;
 
 }

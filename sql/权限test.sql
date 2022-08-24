@@ -16,4 +16,3 @@ FROM
   INNER JOIN menu m
     ON m.id = rm.menu_id
 WHERE r.id = 2;
-
