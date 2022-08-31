@@ -4,25 +4,25 @@
 <mapper namespace="org.example.mapper.CourseContentMapper">
 
     <resultMap id="sessionAndLessonResultMap" type="org.example.domain.CourseSection">
-        <id property="id" column="id"></id>
-        <result property="courseId" column="course_id"></result>
-        <result property="sectionName" column="section_name"></result>
-        <result property="description" column="description"></result>
-        <result property="createTime" column="create_time"></result>
-        <result property="updateTime" column="update_time"></result>
-        <result property="isDel" column="is_del"></result>
-        <result property="orderNum" column="order_num"></result>
+        <id property="id" column="id" javaType="int"></id>
+        <result property="courseId" column="course_id" javaType="int"></result>
+        <result property="sectionName" column="section_name" javaType="string"></result>
+        <result property="description" column="description" javaType="string"></result>
+        <result property="createTime" column="create_time" javaType="date"></result>
+        <result property="updateTime" column="update_time" javaType="date"></result>
+        <result property="isDel" column="is_del" javaType="int"></result>
+        <result property="orderNum" column="order_num" javaType="int"></result>
         <collection property="lessonList" ofType="org.example.domain.CourseLesson">
-            <id property="id" column="lesson_id"></id>
-            <result property="courseId" column="course_id"></result>
-            <result property="sectionId" column="section_id"></result>
-            <result property="theme" column="theme"></result>
-            <result property="duration" column="duration"></result>
-            <result property="isFree" column="is_free"></result>
-            <result property="createTime" column="lesson_create_time"></result>
-            <result property="updateTime" column="lesson_update_time"></result>
-            <result property="isDel" column="lesson_is_del"></result>
-            <result property="orderNum" column="lesson_order_num"></result>
+            <id property="id" column="lesson_id" javaType="int"></id>
+            <result property="courseId" column="course_id" javaType="int"></result>
+            <result property="sectionId" column="section_id" javaType="int"></result>
+            <result property="theme" column="theme" javaType="string"></result>
+            <result property="duration" column="duration" javaType="int"></result>
+            <result property="isFree" column="is_free" javaType="int"></result>
+            <result property="createTime" column="lesson_create_time" javaType="date"></result>
+            <result property="updateTime" column="lesson_update_time" javaType="date"></result>
+            <result property="isDel" column="lesson_is_del" javaType="int"></result>
+            <result property="orderNum" column="lesson_order_num" javaType="int"></result>
         </collection>
     </resultMap>
 
@@ -55,7 +55,7 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
-            <if test="orderNum != null and orderNum != ''">
+            <if test="orderNum != null and orderNum != '' or id == 0">
                 order_num = #{orderNum},
             </if>
             <if test="updateTime != null">
@@ -63,7 +63,7 @@
             </if>
         </trim>
         <where>
-            <if test="id != null and id != ''">
+            <if test="id != null and id != '' or id == 0">
                 id = #{id}
             </if>
         </where>
@@ -90,7 +90,7 @@
         ORDER BY cs.order_num;
     </select>
 
-    <select id="findCourseByCourseId" resultType="org.example.domain.Course">
+    <select id="findCourseByCourseId" resultType="org.example.domain.Course" parameterType="int">
         select id,course_name from course where id = #{id}
     </select>
 </mapper>

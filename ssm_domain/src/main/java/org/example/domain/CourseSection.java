@@ -27,7 +27,7 @@ public class CourseSection {
     //排序
     private Integer orderNum;
     //状态
-    private int status; // int 默认 0 Integer 默认 null
+    private Integer status; // int 默认 0 Integer 默认 null
     //课时集合
     private List<CourseLesson> lessonList;
 }

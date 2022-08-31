@@ -35,12 +35,12 @@ public class CourseContentController {
     /**
      * 根据课程id查询课程信息
      *
-     * @param id
+     * @param courseId
      * @return
      */
     @RequestMapping("/findCourseByCourseId")
-    public ResponseResult findCourseByCourseId(@RequestParam("id") Integer id) {
-        Course course = courseContentService.findCourseByCourseId(id);
+    public ResponseResult findCourseByCourseId(@RequestParam("courseId") Integer courseId) {
+        Course course = courseContentService.findCourseByCourseId(courseId);
         ResponseResult responseResult = new ResponseResult(true, 200, "查询课程信息成功", course);
         return responseResult;
     }

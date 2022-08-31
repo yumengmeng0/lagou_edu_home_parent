@@ -1,5 +1,6 @@
 package org.example.service;
 
+import com.github.pagehelper.PageInfo;
 import org.example.domain.Course;
 import org.example.domain.CourseVO;
 
@@ -15,26 +16,34 @@ import java.util.List;
 public interface CourseService {
 
     /**
-     * 多条件（课程名和课程上下架状态）查询
+     * 分页查询所有检测列表
      *
-     * @param courseVo
+     * @param courseVO
      * @return
      */
-    List<Course> findCourseByCondition(CourseVO courseVo);
+    PageInfo<Course> findAllCourseByPage(CourseVO courseVO);
+
+    /**
+     * 多条件（课程名和课程上下架状态）查询
+     *
+     * @param courseVO
+     * @return
+     */
+    List<Course> findCourseByCondition(CourseVO courseVO);
 
     /**
      * 保存课程及教师信息
      *
-     * @param courseVo
+     * @param courseVO
      */
-    void saveCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
+    void saveCourseOrTeacher(CourseVO courseVO) throws InvocationTargetException, IllegalAccessException;
 
     /**
      * 更新课程及讲师信息
      *
-     * @param courseVo
+     * @param courseVO
      */
-    void updateCourseOrTeacher(CourseVO courseVo) throws InvocationTargetException, IllegalAccessException;
+    void updateCourseOrTeacher(CourseVO courseVO) throws InvocationTargetException, IllegalAccessException;
 
     /**
      * 根据课程id查询课程和讲师信息

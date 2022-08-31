@@ -16,10 +16,10 @@ public interface CourseMapper {
     /**
      * 多条件（课程名和课程上下架状态）查询
      *
-     * @param courseVo
+     * @param courseVO
      * @return
      */
-    List<Course> findCourseByCondition(CourseVO courseVo);
+    List<Course> findCourseByCondition(CourseVO courseVO);
 
     /**
      * 新增课程

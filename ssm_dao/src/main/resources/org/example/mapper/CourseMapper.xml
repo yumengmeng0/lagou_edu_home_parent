@@ -80,7 +80,7 @@
             <if test="courseListImg != null and courseListImg != ''">
                 course_list_img = #{courseListImg},
             </if>
-            <if test="sortNum != null and sortNum != ''">
+            <if test="sortNum != null and sortNum != '' or sortNum == 0">
                 sort_num = #{sortNum},
             </if>
             <if test="price != null and price != ''">
@@ -100,7 +100,7 @@
             </if>
         </trim>
         <where>
-            <if test="id != null and id != ''">
+            <if test="id != null and id != '' or id == 0">
                 id = #{id}
             </if>
         </where>
@@ -123,7 +123,7 @@
             </if>
         </trim>
         <where>
-            <if test="courseId != null and courseId != ''">
+            <if test="courseId != null and courseId != '' or courseId == 0">
                 course_id = #{courseId}
             </if>
         </where>
@@ -141,8 +141,10 @@
             <if test="courseName != null and courseName !=''">
                 and course_name like concat('%', #{courseName},'%')
             </if>
-            <if test="status != null and status !=''">
-                and status = #{status}
+            <!-- 加 "or status == 0" 解决传入为0时，当作'' -->
+            <!--            <if test="status != null and status !='' or status == 0">-->
+            <if test="status != null">
+                and status = #{status, jdbcType=INTEGER}
             </if>
             <if test="true">
                 and is_del != 1

@@ -19,7 +19,7 @@
             </if>
         </trim>
         <where>
-            <if test="id != null and id !=''">
+            <if test="id != null and id !='' or id == 0">
                 id =#{id}
             </if>
         </where>
@@ -30,7 +30,7 @@
     </select>
 
     <select id="findPromotionSpaceById" resultType="org.example.domain.PromotionSpace" parameterType="int">
-         select id, name from promotion_space where id =#{id}
+         select id, name from promotion_space where id = #{id}
     </select>
 
 </mapper>

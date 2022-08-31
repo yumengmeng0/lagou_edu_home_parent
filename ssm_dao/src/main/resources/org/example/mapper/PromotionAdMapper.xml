@@ -4,25 +4,28 @@
 <mapper namespace="org.example.mapper.PromotionAdMapper">
 
     <resultMap id="promotionAdResultMap" type="org.example.domain.PromotionAd">
-        <id property="id" column="id"></id>
-        <result property="name" column="name"></result>
-        <result property="spaceId" column="spaceId"></result>
-        <result property="keyword" column="keyword"></result>
-        <result property="htmlContent" column="htmlContent"></result>
-        <result property="text" column="text"></result>
-        <result property="link" column="link"></result>
-        <result property="startTime" column="startTime"></result>
-        <result property="endTime" column="endTime"></result>
-        <result property="createTime" column="createTime"></result>
-        <result property="updateTime" column="updateTime"></result>
-        <result property="status" column="status"></result>
+        <id property="id" column="id" javaType="int"></id>
+        <result property="name" column="name" javaType="string"></result>
+        <result property="spaceId" column="spaceId" javaType="int"></result>
+        <result property="keyword" column="keyword" javaType="string"></result>
+        <result property="htmlContent" column="htmlContent" javaType="string"></result>
+        <result property="text" column="text" javaType="string"></result>
+        <result property="link" column="link" javaType="string"></result>
+        <result property="startTime" column="startTime" javaType="date"></result>
+        <result property="endTime" column="endTime" javaType="date"></result>
+        <result property="createTime" column="createTime" javaType="date"></result>
+        <result property="updateTime" column="updateTime" javaType="date"></result>
+        <result property="status" column="status" javaType="int"></result>
         <result property="priority" column="priority"></result>
-        <result property="img" column="img"></result>
+        <result property="img" column="img" javaType="string"></result>
+
         <association property="promotionSpace" select="org.example.mapper.PromotionSpaceMapper.findPromotionSpaceById"
                      column="spaceId"
                      javaType="org.example.domain.PromotionSpace">
         </association>
+
     </resultMap>
+
     <update id="updatePromotionAdStatus" parameterType="org.example.domain.PromotionAd">
         update promotion_ad set status = #{status}, updateTime = #{updateTime} where id = #{id}
     </update>

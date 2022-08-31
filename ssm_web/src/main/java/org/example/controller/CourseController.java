@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.example.domain.Course;
 import org.example.domain.CourseVO;
 import org.example.domain.ResponseResult;
@@ -28,15 +29,23 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @RequestMapping("/findAllCourse")
+    public ResponseResult findAllCourse(@RequestBody CourseVO courseVO) {
+        System.out.println("courseVO.getStatus() = " + courseVO.getStatus());
+        // 暂时没有分页
+        List<Course> courseList = courseService.findCourseByCondition(courseVO);
+        return new ResponseResult(true, 0, "响应成功", courseList);
+    }
+
     /**
      * 根据条件查询课程
      *
-     * @param courseVo
+     * @param courseVO
      * @return
      */
     @RequestMapping("/findCourseByCondition")
-    public ResponseResult findCourseByCondition(@RequestBody CourseVO courseVo) {
-        List<Course> courseList = courseService.findCourseByCondition(courseVo);
+    public ResponseResult findCourseByCondition(@RequestBody CourseVO courseVO) {
+        List<Course> courseList = courseService.findCourseByCondition(courseVO);
         ResponseResult responseResult = new ResponseResult(true, 200, "响应成功", courseList);
         return responseResult;
     }

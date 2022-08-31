@@ -69,4 +69,8 @@ public class CourseVO {
     // 讲师描述
     private String description;
 
+    // 分页信息
+    private Integer currentPage;
+    private Integer pageSize;
+
 }

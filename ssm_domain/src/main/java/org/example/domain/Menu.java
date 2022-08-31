@@ -15,7 +15,7 @@ public class Menu {
     //主键id
     private Integer id;
     //父菜单id
-    private int parentId;
+    private Integer parentId;
     //菜单路径
     private String href;
     //菜单图标
@@ -25,11 +25,11 @@ public class Menu {
     //描述
     private String description;
     //排序号
-    private int orderNum;
+    private Integer orderNum;
     //是否展示
-    private int shown;
+    private Integer shown;
     //菜单层级，从0开始
-    private int level;
+    private Integer level;
     //创建时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -13,7 +13,7 @@
             <if test="url != null and url != ''">
                 and url = #{url}
             </if>
-            <if test="categoryId != null and categoryId != ''">
+            <if test="categoryId != null and categoryId != '' or id == 0">
                 and category_id = #{categoryId}
             </if>
         </where>

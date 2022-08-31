@@ -158,7 +158,7 @@ CREATE TABLE `course_section` (
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '章节描述',
   `create_time` datetime NOT NULL COMMENT '记录创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  `is_de` tinyint(1) DEFAULT '0' COMMENT '是否删除',
+  `is_del` tinyint(1) DEFAULT '0' COMMENT '是否删除',
   `order_num` int(11) DEFAULT NULL COMMENT '排序字段',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '状态，0:隐藏；1：待更新；2：已发布',
   PRIMARY KEY (`id`) USING BTREE,
@@ -168,7 +168,7 @@ CREATE TABLE `course_section` (
 
 /*Data for the table `course_section` */
 
-insert  into `course_section`(`id`,`course_id`,`section_name`,`description`,`create_time`,`update_time`,`is_de`,`order_num`,`status`) values 
+insert  into `course_section`(`id`,`course_id`,`section_name`,`description`,`create_time`,`update_time`,`is_del`,`order_num`,`status`) values 
 (7,7,'开篇词 | 从小白到文案高手，手把手教你写出爆款文案','你好，我是兔妈！第一次见面，我用几句话简单介绍下自己','2020-07-10 10:34:47','2020-08-05 11:10:21',0,1,1),
 (8,7,'重点内容总结','重点内容总结','2020-07-10 10:35:05','2020-07-10 17:08:57',0,2,2),
 (9,8,'开篇词','Vue的简单介绍','2020-07-10 11:21:35','2020-07-10 11:41:05',0,1,2),

@@ -4,23 +4,23 @@
 <mapper namespace="org.example.mapper.MenuMapper">
 
     <resultMap id="menuResultMap" type="org.example.domain.Menu">
-        <id property="id" column="id"></id>
-        <result property="href" column="href"></result>
-        <result property="icon" column="icon"></result>
-        <result property="name" column="name"></result>
-        <result property="description" column="description"></result>
-        <result property="orderNum" column="order_num"></result>
-        <result property="shown" column="shown"></result>
-        <result property="level" column="level"></result>
-        <result property="createdTime" column="created_time"></result>
-        <result property="updatedTime" column="updated_time"></result>
-        <result property="createdBy" column="created_by"></result>
-        <result property="updatedBy" column="updated_by"></result>
+        <id property="id" column="id" javaType="int"></id>
+        <result property="href" column="href" javaType="string"></result>
+        <result property="icon" column="icon" javaType="string"></result>
+        <result property="name" column="name" javaType="string"></result>
+        <result property="description" column="description" javaType="string"></result>
+        <result property="orderNum" column="order_num" javaType="int"></result>
+        <result property="shown" column="shown" javaType="int"></result>
+        <result property="level" column="level" javaType="int"></result>
+        <result property="createdTime" column="created_time" javaType="date"></result>
+        <result property="updatedTime" column="updated_time" javaType="date"></result>
+        <result property="createdBy" column="created_by" javaType="string"></result>
+        <result property="updatedBy" column="updated_by" javaType="string"></result>
         <!--
             ofType集合的元素的类型
         -->
         <collection property="subMenuList" select="findSubMenuByPid" column="id"
-                    ofType="org.example.domain.Menu">
+                    ofType="org.example.domain.Menu" javaType="int">
         </collection>
     </resultMap>
 
