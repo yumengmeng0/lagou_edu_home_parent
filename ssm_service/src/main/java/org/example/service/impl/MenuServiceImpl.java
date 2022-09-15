@@ -1,18 +1,19 @@
 package org.example.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.example.domain.Menu;
+import org.example.domain.MenuVO;
 import org.example.mapper.MenuMapper;
 import org.example.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/22
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -37,8 +38,11 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<Menu> findAllMenu() {
-        return menuMapper.findAllMenu();
+    public PageInfo<Menu> findAllMenu(MenuVO menuVO) {
+        PageHelper.startPage(menuVO.getCurrentPage(), menuVO.getPageSize());
+        List<Menu> menuList = menuMapper.findAllMenu();
+        PageInfo<Menu> pageInfo = new PageInfo<>(menuList);
+        return pageInfo;
     }
 
     /**
@@ -51,4 +55,54 @@ public class MenuServiceImpl implements MenuService {
     public Menu findMenuById(Integer id) {
         return menuMapper.findMenuById(id);
     }
+
+    /**
+     * 添加菜单
+     *
+     * @param menu
+     */
+    @Override
+    public void saveMenu(Menu menu) {
+        Date createdTime = new Date();
+        menu.setCreatedTime(createdTime);
+        menu.setUpdatedTime(createdTime);
+        menu.setCreatedBy("system");
+        menu.setUpdatedBy("system");
+        if (menu.getParentId() == -1) {
+            menu.setLevel(0);
+        } else {
+            menu.setLevel(1);
+        }
+        menuMapper.saveMenu(menu);
+    }
+
+    /**
+     * 更新菜单
+     *
+     * @param menu
+     */
+    @Override
+    public void updateMenu(Menu menu) {
+        menu.setUpdatedTime(new Date());
+        menu.setUpdatedBy("system");
+        if (menu.getParentId() == -1) {
+            menu.setLevel(0);
+        } else {
+            menu.setLevel(1);
+        }
+        menuMapper.updateMenu(menu);
+    }
+
+    /**
+     * 根据菜单id删除角色和菜单的中间表
+     *
+     * @param id
+     */
+    @Override
+    public void deleteMenu(Integer id){
+        menuMapper.deleteRoleContextMenuByMenuId(id);
+        menuMapper.deleteMenu(id);
+    }
+
+
 }

@@ -3,9 +3,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.mapper.ResourceCategoryMapper">
 
+    <insert id="saveResourceCategory" parameterType="org.example.domain.ResourceCategory">
+        insert into resource_category(name, sort, created_time, updated_time, created_by, updated_by)
+        values (#{name}, #{sort}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+    </insert>
+
+    <update id="updateResourceCategory" parameterType="org.example.domain.ResourceCategory">
+        update resource_category
+        <trim suffixOverrides="," prefix="set">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sort != null">
+                sort = #{sort, javaType = int},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null">
+                id = #{id,  javaType = int}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteResourceCategoryById" parameterType="int">
+        delete
+        from resource_category
+        where id = #{id}
+    </delete>
+
+    <!--    <delete id="selectResourceContextRole" parameterType="list">-->
+    <!--        select id from role_resource_relation where resource_id in-->
+    <!--        <foreach collection="resourceIds" index="index" item="item"-->
+    <!--                 open="(" separator="," close=")">-->
+    <!--            #{item}-->
+    <!--        </foreach>-->
+    <!--    </delete>-->
 
     <select id="findAllResourceCategory" resultType="org.example.domain.ResourceCategory">
-        select * from resource_category
+        select *
+        from resource_category
+        order by sort
+    </select>
+
+    <select id="findAllResourceIdByCategoryByCategoryId" resultType="java.lang.Integer" parameterType="int">
+        select id
+        from resource
+        where category_id = #{categoryId}
+    </select>
+    <select id="findResourceCategoryById" resultType="org.example.domain.ResourceCategory" parameterType="int">
+        select *
+        from resource_category
+        where id = #{id}
     </select>
 
 </mapper>

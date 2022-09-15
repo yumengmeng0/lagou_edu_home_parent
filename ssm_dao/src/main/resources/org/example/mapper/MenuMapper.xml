@@ -20,20 +20,85 @@
             ofType集合的元素的类型
         -->
         <collection property="subMenuList" select="findSubMenuByPid" column="id"
-                    ofType="org.example.domain.Menu" javaType="int">
+                    ofType="org.example.domain.Menu" javaType="list">
         </collection>
     </resultMap>
 
+    <insert id="saveMenu" parameterType="org.example.domain.Menu">
+        insert into menu(parent_id, href, icon, name, description, order_num, shown,
+                         level, created_time, updated_time, created_by, updated_by)
+        values (#{parentId}, #{href}, #{icon}, #{name}, #{description}, #{orderNum}, #{shown},
+                #{level}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+    </insert>
+
+    <update id="updateMenu" parameterType="org.example.domain.Menu">
+        update menu
+        <trim suffixOverrides="," prefix="set">
+            <if test="parentId != null and parentId != ''">
+                parent_id = #{parentId},
+            </if>
+            <if test="href != null and href != ''">
+                href = #{href},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="orderNum != null and orderNum != ''">
+                order_num = #{orderNum},
+            </if>
+            <if test="shown != null and shown != ''">
+                shown = #{shown},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id!=''">
+                id = #{id, javaType=int}
+            </if>
+        </where>
+    </update>
+
     <select id="findSubMenuByPid" resultMap="menuResultMap" parameterType="int">
-        select * from menu where parent_id = #{id}
+        select *
+        from menu
+        where parent_id = #{id}
     </select>
 
     <select id="findAllMenu" resultType="org.example.domain.Menu">
-        select * from menu
+        select *
+        from menu
+        order by order_num
     </select>
 
     <select id="findMenuById" resultType="org.example.domain.Menu" parameterType="int">
-         select * from menu where id = #{id}
+        select *
+        from menu
+        where id = #{id}
     </select>
 
+    <delete id="deleteRoleContextMenuByMenuId" parameterType="int">
+        delete
+        from role_menu_relation
+        where menu_id = #{menuId}
+    </delete>
+
+    <delete id="deleteMenu" parameterType="int">
+        delete
+        from menu
+        where id = #{id}
+    </delete>
 </mapper>

@@ -5,12 +5,8 @@ import org.example.domain.*;
 
 import java.util.List;
 
-
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface UserService {
 
@@ -32,10 +28,10 @@ public interface UserService {
     /**
      * 根据用户id查询关联的角色信息
      *
-     * @param userId
+     * @param id
      * @return
      */
-    List<Role> findUserRelationRoleById(Integer userId);
+    List<Role> findUserRelationRoleById(Integer id);
 
     /**
      * 分配角色
@@ -47,9 +43,16 @@ public interface UserService {
     /**
      * 获取用户权限信息
      *
-     * @param userId
+     * @param id
      * @return
      */
-    ResponseResult getUserPermissions(Integer userId);
+    ResponseResult getUserPermissions(Integer id);
+
+    /**
+     * 修改用户状态
+     *
+     * @param userVO
+     */
+    void updateUserStatus(UserVO userVO);
 
 }

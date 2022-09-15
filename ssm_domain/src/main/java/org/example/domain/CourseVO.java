@@ -5,9 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @author: ymm
- * @date: 2022/8/17
- * @version: 1.0.0
+ * @author:
  * @description: Vo（View Object，表现层对象，用于表现层接收参数）
  */
 @Data

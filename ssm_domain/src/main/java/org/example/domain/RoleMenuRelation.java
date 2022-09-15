@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author
+ */
 @Data
 public class RoleMenuRelation {
     private Integer id;

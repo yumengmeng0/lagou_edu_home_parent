@@ -3,6 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.mapper.ResourceMapper">
 
+    <insert id="saveResource" parameterType="org.example.domain.Resource">
+        insert into resource(name, url, description, category_id, created_time, updated_time, created_by, updated_by)
+        values (#{name}, #{url}, #{description}, #{categoryId}, #{createdTime}, #{updatedTime}, #{createdBy},
+                #{updatedBy})
+    </insert>
+
+    <update id="updateResource" parameterType="org.example.domain.Resource">
+        update resource
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                category_id = #{categoryId},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id, javaType=int}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteResourceByResourceCategoryId" parameterType="int">
+        delete
+        from resource
+        where resource id = #{category_id}
+    </delete>
+
     <select id="findAllResourceByPage" resultType="org.example.domain.Resource"
             parameterType="org.example.domain.ResourceVO">
         select * from resource
@@ -18,5 +59,36 @@
             </if>
         </where>
     </select>
+
+    <select id="findResourceByeCategoryId" resultType="org.example.domain.Resource" parameterType="int">
+        select *
+        from resource
+        where category_id = #{categoryId}
+    </select>
+
+    <select id="findResourceById" resultType="org.example.domain.Resource" parameterType="int">
+        select *
+        from resource
+        where id = #{id}
+    </select>
+
+    <delete id="deleteRoleContextResource" parameterType="list">
+        delete
+        from role_resource_relation
+        <where>
+            <if test="list != null and list.size()>0">
+                where resource_id in
+                <foreach collection="list" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+
+    <delete id="deleteResource" parameterType="int">
+        delete
+        from resource
+        where id = #{id}
+    </delete>
 
 </mapper>

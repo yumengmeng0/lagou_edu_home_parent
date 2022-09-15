@@ -7,7 +7,9 @@ import java.util.List;
 
 /**
  * 章节类
- * */
+ *
+ * @author
+ */
 @Data
 public class CourseSection {
     //id
@@ -26,8 +28,13 @@ public class CourseSection {
     private Integer isDel;
     //排序
     private Integer orderNum;
-    //状态
-    private Integer status; // int 默认 0 Integer 默认 null
-    //课时集合
+    /**
+     * 状态
+     * int 默认 0 Integer 默认 null
+     */
+    private Integer status;
+    /**
+     * 课时集合
+     */
     private List<CourseLesson> lessonList;
 }

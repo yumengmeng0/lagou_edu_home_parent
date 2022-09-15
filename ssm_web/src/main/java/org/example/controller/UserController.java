@@ -9,6 +9,7 @@ import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +41,7 @@ public class UserController {
     public ResponseResult findAllUserByPage(@RequestBody UserVO userVO) {
         System.out.println("userVO = " + userVO);
         PageInfo<User> pageInfo = userService.findAllUserByPage(userVO);
-        ResponseResult responseResult = new ResponseResult(true, 200, "分页条件查询用户成功", pageInfo);
-        return responseResult;
+        return new ResponseResult(true, 200, "分页条件查询用户成功", pageInfo);
     }
 
 
@@ -109,4 +109,17 @@ public class UserController {
             return new ResponseResult(true, 400, "获取菜单信息失败", null);
         }
     }
+
+    /**
+     * 修改用户状态，ENABLE表示能登录，DISABLE表示不能登录
+     *
+     * @param userVO
+     * @return
+     */
+    @RequestMapping("/updateUserStatus")
+    public ResponseResult updateUserStatus(UserVO userVO) {
+        userService.updateUserStatus(userVO);
+        return new ResponseResult(true, 200, "更改用户状态成功", userVO.getStatus());
+    }
+
 }

@@ -6,23 +6,41 @@ import java.util.Date;
 
 /**
  * 教师类
- * */
+ *
+ * @author
+ */
 @Data
 public class Teacher {
-    //id
+    /**
+     * id
+     */
     private Integer id;
-    //课程id
+    /**
+     * 课程id
+     */
     private Integer courseId;
-    //讲师姓名
+    /**
+     * 讲师姓名
+     */
     private String teacherName;
-    //讲师职务
+    /**
+     * 讲师职务
+     */
     private String position;
-    //介绍
+    /**
+     * 介绍
+     */
     private String description;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //修改时间
+    /**
+     * 修改时间
+     */
     private Date updateTime;
-    //是否删除
+    /**
+     * 是否删除
+     */
     private Integer isDel;
 }

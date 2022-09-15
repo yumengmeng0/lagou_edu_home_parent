@@ -25,12 +25,59 @@
         </association>
 
     </resultMap>
+    <insert id="savePromotionAd" parameterType="org.example.domain.PromotionAd">
+        insert into promotion_ad(name, spaceId, startTime, endTime, status, img, link, text, createTime, updateTime)
+        values(#{name}, #{spaceId}, #{startTime}, #{endTime}, #{status}, #{img}, #{link}, #{text}, #{createTime}, #{updateTime})
+    </insert>
 
     <update id="updatePromotionAdStatus" parameterType="org.example.domain.PromotionAd">
         update promotion_ad set status = #{status}, updateTime = #{updateTime} where id = #{id}
     </update>
 
+    <update id="updatePromotionAd" parameterType="org.example.domain.PromotionAd">
+        update promotion_ad
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="spaceId != null and spaceId != ''">
+                spaceId = #{spaceId, javaType=int},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status, javaType=int},
+            </if>
+            <if test="img != null and img != ''">
+                img = #{img},
+            </if>
+            <if test="link != null and link != ''">
+                link = #{link},
+            </if>
+            <if test="text != null and text != ''">
+                text = #{text},
+            </if>
+            <if test="updateTime != null ">
+                updateTime = #{updateTime},
+            </if>
+        </trim>
+        <!-- 注意：有个隐患就是当传入参数为空的时候，可能会造成全表查询。-->
+        <where>
+            <if test="id != null and id != '' or id == 0">
+                id = #{id, javaType=int}
+            </if>
+        </where>
+    </update>
+
     <select id="findAllPromotionAdByPage" resultMap="promotionAdResultMap">
         select * from promotion_ad
+    </select>
+
+    <select id="findPromotionAdById" resultType="org.example.domain.PromotionAd" parameterType="int">
+        select * from promotion_ad where id = #{id}
     </select>
 </mapper>

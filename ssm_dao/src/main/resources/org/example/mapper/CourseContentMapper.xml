@@ -3,29 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.mapper.CourseContentMapper">
 
-    <resultMap id="sessionAndLessonResultMap" type="org.example.domain.CourseSection">
-        <id property="id" column="id" javaType="int"></id>
-        <result property="courseId" column="course_id" javaType="int"></result>
-        <result property="sectionName" column="section_name" javaType="string"></result>
-        <result property="description" column="description" javaType="string"></result>
-        <result property="createTime" column="create_time" javaType="date"></result>
-        <result property="updateTime" column="update_time" javaType="date"></result>
-        <result property="isDel" column="is_del" javaType="int"></result>
-        <result property="orderNum" column="order_num" javaType="int"></result>
-        <collection property="lessonList" ofType="org.example.domain.CourseLesson">
-            <id property="id" column="lesson_id" javaType="int"></id>
-            <result property="courseId" column="course_id" javaType="int"></result>
-            <result property="sectionId" column="section_id" javaType="int"></result>
-            <result property="theme" column="theme" javaType="string"></result>
-            <result property="duration" column="duration" javaType="int"></result>
-            <result property="isFree" column="is_free" javaType="int"></result>
-            <result property="createTime" column="lesson_create_time" javaType="date"></result>
-            <result property="updateTime" column="lesson_update_time" javaType="date"></result>
-            <result property="isDel" column="lesson_is_del" javaType="int"></result>
-            <result property="orderNum" column="lesson_order_num" javaType="int"></result>
-        </collection>
-    </resultMap>
-
     <insert id="saveSection" parameterType="org.example.domain.CourseSection">
         insert into course_section (
             course_id,
@@ -46,6 +23,15 @@
         )
     </insert>
 
+    <insert id="saveLesson" parameterType="org.example.domain.CourseLesson">
+        insert into course_lesson(course_id, section_id, theme, duration, is_free, create_time, update_time, order_num, status)
+                    values(#{courseId}, #{sectionId}, #{theme}, #{duration}, #{isFree}, #{createTime}, #{updateTime}, #{orderNum}, #{status})
+    </insert>
+
+    <update id="updateLesson" parameterType="org.example.domain.CourseLesson">
+        update course_lesson set theme = #{theme}, duration = #{duration}, is_free =  #{isFree}, update_time = #{updateTime}, order_num = #{orderNum} where id = #{id}
+    </update>
+
     <update id="updateSection" parameterType="org.example.domain.CourseSection">
         update course_section
         <trim prefix="set" suffixOverrides=",">
@@ -55,7 +41,7 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
-            <if test="orderNum != null and orderNum != '' or id == 0">
+            <if test="orderNum != null and orderNum != '' or orderNum == 0">
                 order_num = #{orderNum},
             </if>
             <if test="updateTime != null">
@@ -69,28 +55,86 @@
         </where>
     </update>
 
+    <update id="updateSectionStatus" parameterType="org.example.domain.CourseSection">
+        update course_section set status = #{status}, update_time = #{updateTime} where id = #{id}
+    </update>
+
+    <update id="updateLessonStatus" parameterType="org.example.domain.CourseLesson">
+        update course_lesson set status = #{status}, update_time = #{updateTime} where id = #{id}
+    </update>
+
+    <resultMap id="sessionAndLessonResultMap" type="org.example.domain.CourseSection">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="courseId" column="course_id" javaType="int"></result>
+        <result property="sectionName" column="section_name" javaType="string"></result>
+        <result property="description" column="description" javaType="string"></result>
+        <result property="isDel" column="is_del" javaType="int"></result>
+        <result property="orderNum" column="order_num" javaType="int"></result>
+        <result property="status" column="status" javaType="int"></result>
+        <collection property="lessonList" ofType="org.example.domain.CourseLesson" resultMap="lessonListResultMap">
+        </collection>
+    </resultMap>
+
+    <resultMap id="lessonListResultMap" type="org.example.domain.CourseLesson">
+        <id property="id" column="lesson_id" javaType="int"></id>
+        <result property="courseId" column="course_id" javaType="int"></result>
+        <result property="sectionId" column="section_id" javaType="int"></result>
+        <result property="theme" column="theme" javaType="string"></result>
+        <result property="duration" column="duration" javaType="int"></result>
+        <result property="isFree" column="is_free" javaType="int"></result>
+        <result property="orderNum" column="lesson_order_num" javaType="int"></result>
+        <result property="status" column="lesson_status" javaType="int"></result>
+    </resultMap>
+
+    <!--    课时表字段-->
+    <sql id="lesson_column_list">
+        cl.id lesson_id,
+        cl.course_id,
+        cl.section_id,
+        cl.theme,
+        cl.duration,
+        cl.is_del lesson_is_del,
+        cl.is_free,
+        cl.order_num lesson_order_num,
+        cl.status lesson_status
+    </sql>
+
+    <!--    根据课程id查找课程和课时信息-->
     <select id="findSectionAndLessonByCourseId" parameterType="int" resultMap="sessionAndLessonResultMap">
-         SELECT
-          cs.*,
-          cl.id lesson_id,
-          cl.course_id,
-          cl.section_id,
-          cl.theme,
-          cl.duration,
-          cl.create_time lesson_create_time,
-          cl.update_time lesson_update_time,
-          cl.is_del lesson_is_del,
-          cl.order_num lesson_order_num,
-          cl.status lesson_status
+        SELECT
+        cs.*,
+        <include refid="lesson_column_list"></include>
         FROM
-          course_section cs
-          LEFT JOIN course_lesson cl
-            ON cl.section_id = cs.id
-        WHERE cs.course_id = #{id}
+        course_section cs
+        LEFT JOIN course_lesson cl
+        ON cl.section_id = cs.id
+        WHERE cs.course_id = #{courseId}
         ORDER BY cs.order_num;
     </select>
 
     <select id="findCourseByCourseId" resultType="org.example.domain.Course" parameterType="int">
         select id,course_name from course where id = #{id}
     </select>
+
+    <select id="findSectionAndLessonByCourseId1" resultType="org.example.domain.CourseSection"></select>
+
+    <!--    <resultMap id="CourseSection" type="org.example.domain.CourseSection">-->
+<!--        <id property="id" column="id" javaType="int"></id>-->
+<!--        <result property="courseId" column="course_id" javaType="int"></result>-->
+<!--        <result property="sectionName" column="section_name" javaType="string"></result>-->
+<!--        <result property="description" column="description" javaType="string"></result>-->
+<!--        <result property="isDel" column="is_del" javaType="int"></result>-->
+<!--        <result property="orderNum" column="order_num" javaType="int"></result>-->
+<!--        <result property="status" column="status" javaType="int"></result>-->
+<!--        <collection property="lessonList" select="findLessonByCourseIdAndSectionId"-->
+<!--                    ofType="org.example.domain.CourseLesson">-->
+
+<!--        </collection>-->
+<!--    </resultMap>-->
+<!--    <select id="findLessonByCourseIdAndSectionId" parameterType="int" resultType="org.example.domain.CourseLesson">-->
+<!--        select * from course_lesson where course_id = #{course_id} and section_id = #{sectionId}-->
+<!--    </select>-->
+<!--    <select id="findSectionAndLessonByCourseId1" resultType="org.example.domain.CourseSection" parameterType="int">-->
+<!--        select * from course_section where course_id = #{id}-->
+<!--    </select>-->
 </mapper>

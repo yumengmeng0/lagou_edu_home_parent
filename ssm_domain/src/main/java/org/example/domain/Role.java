@@ -5,7 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 角色
+ * 角色类
+ *
+ * @author
  */
 @Data
 public class Role {

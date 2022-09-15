@@ -16,10 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/17
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -35,8 +32,6 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public PageInfo<Course> findAllCourseByPage(CourseVO courseVO) {
-
-        System.out.println("courseVO = " + courseVO);
         PageHelper.startPage(courseVO.getCurrentPage(), courseVO.getPageSize());
         List<Course> courseList = courseMapper.findCourseByCondition(courseVO); // 复用按条件查询的
         PageInfo<Course> pageInfo = new PageInfo<>(courseList);
@@ -51,7 +46,7 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public List<Course> findCourseByCondition(CourseVO courseVO) {
-        System.out.println("CourseServiceImpl courseVO.getStatus() = " + courseVO.getStatus());
+//        System.out.println("CourseServiceImpl courseVO.getStatus() = " + courseVO.getStatus());
         return courseMapper.findCourseByCondition(courseVO);
     }
 

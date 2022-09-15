@@ -1,15 +1,13 @@
 package org.example.mapper;
 
-import org.example.domain.Course;
-import org.example.domain.CourseSection;
+import org.example.domain.*;
 
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/19
- * @version: 1.0.0
- * @description: 课程内容
+ * 课程内容
+ *
+ * @author
  */
 public interface CourseContentMapper {
 
@@ -20,6 +18,13 @@ public interface CourseContentMapper {
      * @return
      */
     List<CourseSection> findSectionAndLessonByCourseId(Integer id);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    List<CourseSection> findSectionAndLessonByCourseId1(Integer id);
 
     /**
      * 根据课程id查询课程信息
@@ -44,4 +49,41 @@ public interface CourseContentMapper {
     void updateSection(CourseSection section);
 
 
+    /**
+     * 根据章节id修改章节状态
+     *
+     * @param courseSection
+     */
+    void updateSectionStatus(CourseSection courseSection);
+
+    /**
+     * 新建课时信息
+     *
+     * @param courseLesson
+     */
+    void saveLesson(CourseLesson courseLesson);
+
+    /**
+     * 更新课时信息
+     *
+     * @param courseLesson
+     */
+    void updateLesson(CourseLesson courseLesson);
+
+    /**
+     * 修改课时状态
+     *
+     * @param courseLesson
+     */
+    void updateLessonStatus(CourseLesson courseLesson);
+
+
+    /**
+     * 根据课程和章节id查找课时
+     *
+     * @param courseId
+     * @param sectionId
+     * @return
+     */
+//    List<CourseLesson> findLessonByCourseIdAndSectionId(@Param("courseId") Integer courseId, @Param("sectionId") Integer sectionId);
 }

@@ -5,10 +5,7 @@ import org.example.domain.PromotionSpace;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface PromotionSpaceMapper {
 

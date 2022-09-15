@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * 课程类
+ *
+ * @author
  */
 @Data
 public class Course {

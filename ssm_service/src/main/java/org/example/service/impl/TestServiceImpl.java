@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/16
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class TestServiceImpl implements TestService {

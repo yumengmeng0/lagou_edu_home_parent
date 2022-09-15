@@ -4,6 +4,9 @@ import lombok.*;
 
 /**
  * 响应结果封装对象
+ *
+ * @author
+ * @date: 2022/8/22
  */
 @Data
 @NoArgsConstructor
@@ -12,6 +15,8 @@ public class ResponseResult {
     private Boolean success;
     private Integer state;
     private String message;
-    // 响应前端的具体数据
+    /**
+     * 响应前端的具体数据
+     */
     private Object content;
 }

@@ -3,8 +3,9 @@ package org.example.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.util.UUID;
-
+/**
+ * @author
+ */
 public class Md5 {
 
     public final static String md5key = "lagou";
@@ -20,7 +21,6 @@ public class Md5 {
     public static String md5(String text, String key) throws Exception {
         //加密后的字符串
         String encodeStr = DigestUtils.md5Hex(text + key);
-//        System.out.println("MD5加密后的字符串为:encodeStr=" + encodeStr);
         return encodeStr;
     }
 
@@ -37,11 +37,9 @@ public class Md5 {
         //根据传入的密钥进行验证
         String md5Text = md5(text, key);
         if (md5Text.equalsIgnoreCase(md5)) {
-//            System.out.println("MD5验证通过");
             return true;
         }
         return false;
     }
-
 
 }

@@ -7,35 +7,124 @@
         select * from roles
         <where>
             <if test="name != null and name != ''">
-                name = #{name}
+                name like concat("%",#{name},"%")
             </if>
         </where>
     </select>
 
     <select id="findMenuByRoleId" resultType="int" parameterType="int">
-         SELECT
-          m.id
-        FROM
-          roles r
-          INNER JOIN role_menu_relation rm
-            ON r.id = rm.role_id
-          INNER JOIN menu m
-            ON m.id = rm.menu_id
+        SELECT m.id
+        FROM roles r
+                 INNER JOIN role_menu_relation rm
+                            ON r.id = rm.role_id
+                 INNER JOIN menu m
+                            ON m.id = rm.menu_id
         WHERE r.id = #{roleId};
     </select>
 
+    <select id="findResourceListByRoleId" resultType="org.example.domain.Resource" parameterType="int">
+        select *
+        from resource
+        where role_id = #{roleId}
+    </select>
+
+
     <insert id="allocateRoleContextMenu" parameterType="org.example.domain.RoleMenuRelation">
-        insert into role_menu_relation(menu_id,role_id,created_time,updated_time,created_by,updated_by)
-        values(#{menuId}, #{roleId}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+        insert into role_menu_relation(menu_id, role_id, created_time, updated_time, created_by, updated_by)
+        values (#{menuId}, #{roleId}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
     </insert>
 
     <!--    根据role_id删除在中间表与菜单的关联关系-->
     <delete id="deleteRoleContextMenu" parameterType="int">
-        delete from role_menu_relation where role_id = #{roleId}
+        delete
+        from role_menu_relation
+        where role_id = #{roleId}
     </delete>
 
     <delete id="deleteRole" parameterType="int">
-        delete from roles where id = #{roleId}
+        delete
+        from roles
+        where id = #{roleId}
     </delete>
+
+
+    <update id="updateRole" parameterType="org.example.domain.Role">
+        update roles
+        <trim prefix="set" suffixOverrides=",">
+
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id, javaType=int}
+            </if>
+        </where>
+    </update>
+
+    <insert id="saveRole" parameterType="org.example.domain.Role">
+        insert into roles(name, code, description, created_time, updated_time, created_by, updated_by)
+        values (#{name}, #{code}, #{description}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+    </insert>
+
+    <insert id="allocateRoleContextResource">
+        insert into role_resource_relation(resource_id, role_id, created_time, updated_time, created_by, updated_by)
+        values (#{resourceId}, #{roleId}, #{createdTime}, #{updatedTime}, #{createdBy}, #{updatedBy})
+    </insert>
+
+    <delete id="deleteRoleContextResourceByRoleId" parameterType="int">
+        delete
+        from role_resource_relation
+        where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleContextResource" parameterType="int">
+        delete
+        from role_resource_relation
+        where resource_id = #{resourceId}
+    </delete>
+
+    <!--    获取角色拥有的资源分类数据-->
+    <resultMap id="resourceCategoryResultMap" type="org.example.domain.ResourceCategory">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+    </resultMap>
+
+    <select id="findRoleHaveResourceCategory" resultMap="resourceCategoryResultMap" parameterType="int">
+        SELECT rc.id,
+               rc.name
+        FROM role_resource_relation rrr
+                 LEFT JOIN resource r
+                           ON rrr.resource_id = r.id
+                 RIGHT JOIN resource_category rc
+                            ON rc.id = r.category_id
+        WHERE rrr.role_id = #{roleId}
+        GROUP BY rc.id;
+    </select>
+
+    <!--    获取角色拥有的资源数据-->
+    <select id="findRoleHaveResource" resultType="org.example.domain.Resource" parameterType="int">
+        SELECT r.id,
+               r.name,
+               r.category_id
+        FROM role_resource_relation rrr
+                 LEFT JOIN resource r
+                           ON rrr.resource_id = r.id
+        WHERE rrr.role_id = #{roleId};
+    </select>
+
 
 </mapper>

@@ -5,16 +5,15 @@ import org.example.domain.Menu;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/22
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface MenuMapper {
+
 
     /**
      * 查询所有父子菜单信息
      *
+     * @param id
      * @return
      */
     List<Menu> findSubMenuByPid(Integer id);
@@ -33,4 +32,32 @@ public interface MenuMapper {
      * @return
      */
     Menu findMenuById(Integer id);
+
+    /**
+     * 添加菜单
+     *
+     * @param menu
+     */
+    void saveMenu(Menu menu);
+
+    /**
+     * 更新菜单
+     *
+     * @param menu
+     */
+    void updateMenu(Menu menu);
+
+    /**
+     * 根据菜单id删除角色和菜单的中间表
+     *
+     * @param id
+     */
+    void deleteMenu(Integer id);
+
+    /**
+     * 根据菜单id删除角色和菜单的中间表
+     *
+     * @param menuId
+     */
+    void deleteRoleContextMenuByMenuId(Integer menuId);
 }

@@ -1,16 +1,11 @@
 package org.example.service;
 
-import org.example.domain.Role;
-import org.example.domain.RoleMenuRelation;
-import org.example.domain.RoleMenuVO;
+import org.example.domain.*;
 
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/22
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface RoleService {
 
@@ -45,5 +40,34 @@ public interface RoleService {
      */
     void deleteRole(Integer roleId);
 
+    /**
+     * 添加角色
+     *
+     * @param role
+     */
+    void saveRole(Role role);
+
+    /**
+     * 修改角色
+     *
+     * @param role
+     */
+    void updateRole(Role role);
+
+    /**
+     * 为角色分配资源
+     *
+     * @param resourceVO
+     */
+    void allocateRoleContextResource(ResourceVO resourceVO);
+
+
+    /**
+     * 根据id查找角色拥有的资源分类和资源信息
+     *
+     * @param roleId
+     * @return
+     */
+    List<ResourceCategory> findRoleHaveResource(Integer roleId);
 
 }

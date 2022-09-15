@@ -1,8 +1,6 @@
 package org.example.controller;
 
-import org.example.domain.Course;
-import org.example.domain.CourseSection;
-import org.example.domain.ResponseResult;
+import org.example.domain.*;
 import org.example.service.CourseContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 /**
- * @author: ymm
- * @date: 2022/8/19
- * @version: 1.0.0
- * @description:
+ * 课程内容
+ *
+ * @author
  */
 @RestController
 @RequestMapping("/courseContent")
@@ -25,11 +23,10 @@ public class CourseContentController {
     @Autowired
     private CourseContentService courseContentService;
 
-    @RequestMapping("/findSectionAndLessonByCourseId")
-    public ResponseResult findSectionAndLessonByCourseId(@RequestParam("id") Integer id) {
-        List<CourseSection> sectionList = courseContentService.findSectionAndLessonByCourseId(id);
-        ResponseResult responseResult = new ResponseResult(true, 200, "响应成功", sectionList);
-        return responseResult;
+    @RequestMapping("/findSectionAndLesson")
+    public ResponseResult findSectionAndLessonByCourseId(@RequestParam("courseId") Integer courseId) {
+        List<CourseSection> sectionList = courseContentService.findSectionAndLessonByCourseId(courseId);
+        return new ResponseResult(true, 200, "响应成功", sectionList);
     }
 
     /**
@@ -41,8 +38,7 @@ public class CourseContentController {
     @RequestMapping("/findCourseByCourseId")
     public ResponseResult findCourseByCourseId(@RequestParam("courseId") Integer courseId) {
         Course course = courseContentService.findCourseByCourseId(courseId);
-        ResponseResult responseResult = new ResponseResult(true, 200, "查询课程信息成功", course);
-        return responseResult;
+        return new ResponseResult(true, 200, "查询课程信息成功", course);
     }
 
     /**
@@ -53,17 +49,52 @@ public class CourseContentController {
      */
     @RequestMapping("/saveOrUpdateSection")
     public ResponseResult saveOrUpdateSection(@RequestBody CourseSection section) {
-        ResponseResult responseResult = null;
-
         if (section.getId() == null) {
             courseContentService.saveSection(section);
-            responseResult = new ResponseResult(true, 200, "新增成功", null);
+            return new ResponseResult(true, 200, "新增成功", null);
         } else {
             courseContentService.updateSection(section);
-            responseResult = new ResponseResult(true, 200, "修改成功", null);
+            return new ResponseResult(true, 200, "修改成功", null);
         }
+    }
 
-        return responseResult;
+    /**
+     * 修改课时状态
+     *
+     * @return
+     */
+    @RequestMapping("/updateSectionStatus")
+    public ResponseResult updateSectionStatus(CourseSection courseSection) {
+        courseContentService.updateSectionStatus(courseSection);
+        return new ResponseResult(true, 200, "修改章节状态成功", null);
+    }
+
+    /**
+     * 新增或修改课时信息
+     *
+     * @param courseLesson
+     * @return
+     */
+    @RequestMapping("/saveOrUpdateLesson")
+    public ResponseResult saveOrUpdateLesson(@RequestBody CourseLesson courseLesson) {
+        if (courseLesson.getId() != null) {
+            courseContentService.updateLesson(courseLesson);
+        } else {
+            courseContentService.saveLesson(courseLesson);
+        }
+        return new ResponseResult(true, 200, "修改或新增课时成功", null);
+    }
+
+    /**
+     * 更新课时状态
+     *
+     * @param courseLesson
+     * @return
+     */
+    @RequestMapping("/updateLessonStatus")
+    public ResponseResult updateLessonStatus(CourseLesson courseLesson) {
+        courseContentService.updateLessonStatus(courseLesson);
+        return new ResponseResult(true, 200, "更新课时状态成功", null);
     }
 
 

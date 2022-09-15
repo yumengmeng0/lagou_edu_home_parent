@@ -13,10 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class PromotionAdServiceImpl implements PromotionAdService {
@@ -51,6 +48,41 @@ public class PromotionAdServiceImpl implements PromotionAdService {
         Date updateTime = new Date();
         promotionAd.setUpdateTime(updateTime);
         promotionAdMapper.updatePromotionAdStatus(promotionAd);
+    }
+
+    /**
+     * 根据广告id查询广告信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public PromotionAd findPromotionAdById(Integer id) {
+        return promotionAdMapper.findPromotionAdById(id);
+    }
+
+    /**
+     * 保存广告
+     *
+     * @param promotionAd
+     */
+    @Override
+    public void savePromotionAd(PromotionAd promotionAd) {
+        Date createTime = new Date();
+        promotionAd.setCreateTime(createTime);
+        promotionAd.setUpdateTime(createTime);
+        promotionAdMapper.savePromotionAd(promotionAd);
+    }
+
+    /**
+     * 修改广告
+     *
+     * @param promotionAd
+     */
+    @Override
+    public void updatePromotionAd(PromotionAd promotionAd) {
+        promotionAd.setUpdateTime(new Date());
+        promotionAdMapper.updatePromotionAd(promotionAd);
     }
 
 }

@@ -49,3 +49,21 @@ https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.m
         </where>
     </select>
 ```
+
+# bug
+## 1. 查询课时列表为空时会有一个只有id的对象
+## 2. 资源分类修改后没有页面立即更新
+Promise函数内部获取数据的问题
+    
+    
+# 巧妙mybatis避免Where 空条件的尴尬 
+
+https://blog.csdn.net/qq_43842093/article/details/121728251  
+    
+# GET请求多个参数，在web层处理（参数多了用VO，参数少了直接多个变量接收）
+    1. 参数是映射到VO对象，向dao层传VO对象
+    2. 直接接收参数，dao层使用@Param映射到对应字段
+    
+    
+# 
+

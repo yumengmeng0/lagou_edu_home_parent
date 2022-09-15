@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.domain.*;
 import org.example.service.MenuService;
+import org.example.service.ResourceService;
 import org.example.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,9 @@ import java.util.List;
 
 
 /**
- * @author: ymm
- * @date: 2022/8/22
- * @version: 1.0.0
- * @description:
+ * 角色管理
+ *
+ * @author
  */
 @RestController
 @RequestMapping("/role")
@@ -24,6 +24,8 @@ public class RoleController {
     private RoleService roleService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private ResourceService resourceService;
 
     /**
      * 按条件查询所有角色
@@ -38,8 +40,9 @@ public class RoleController {
 
     @RequestMapping("/findAllMenu")
     public ResponseResult findSubMenuByPid() {
-        List<Menu> menuList = menuService.findSubMenuByPid(-1); // -1 表示查询所有父级菜单
-        HashMap<String, Object> map = new HashMap<>();
+        // -1 表示查询所有父级菜单
+        List<Menu> menuList = menuService.findSubMenuByPid(-1);
+        HashMap<String, Object> map = new HashMap<>(menuList.size());
         map.put("parentMenuList", menuList);
         return new ResponseResult(true, 200, "查询父子级菜单成功", map);
     }
@@ -78,5 +81,41 @@ public class RoleController {
         roleService.deleteRole(id);
         return new ResponseResult(true, 200, "删除角色成功", null);
     }
+
+    @RequestMapping("/saveOrUpdateRole")
+    public ResponseResult saveOrUpdateRole(@RequestBody Role role) { // @RequestBody post请求是json
+        System.out.println("role = " + role);
+        if (role.getId() == null) {
+            roleService.saveRole(role);
+            return new ResponseResult(true, 200, "添加角色成功", "");
+        } else {
+            roleService.updateRole(role);
+            return new ResponseResult(true, 200, "修改角色成功", "");
+        }
+    }
+
+    /**
+     * 根据角色id查询的分配资源
+     *
+     * @return
+     */
+    @RequestMapping("/findResourceListByRoleId")
+    public ResponseResult findResourceListByRoleId(@RequestParam("roleId") Integer roleId) {
+        List<ResourceCategory> resourceCategoryList = roleService.findRoleHaveResource(roleId);
+        return new ResponseResult(true, 200, "查询的分配资源成功", resourceCategoryList);
+    }
+
+    /**
+     * 分配资源
+     *
+     * @return
+     */
+    @RequestMapping("/roleContextResource")
+    public ResponseResult roleContextResource(@RequestBody ResourceVO resourceVO) {
+        roleService.allocateRoleContextResource(resourceVO);
+        return new ResponseResult(true, 200, "分配资源成功", null);
+    }
+
+
 }
 

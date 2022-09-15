@@ -6,6 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+/**
+ * @author
+ */
 @Data
 public class PromotionAd {
 
@@ -31,7 +34,11 @@ public class PromotionAd {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     private Integer status;
     // 优先级

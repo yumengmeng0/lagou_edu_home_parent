@@ -7,10 +7,7 @@ import org.example.domain.Teacher;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/17
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface CourseMapper {
     /**

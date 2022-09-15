@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * 资源类
+ *
+ * @author
  */
 @Data
 public class Resource {

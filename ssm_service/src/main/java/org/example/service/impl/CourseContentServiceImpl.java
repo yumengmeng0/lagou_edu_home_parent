@@ -1,11 +1,9 @@
 package org.example.service.impl;
 
-import org.example.domain.Course;
-import org.example.domain.CourseSection;
+import org.example.domain.*;
 import org.example.mapper.CourseContentMapper;
-import org.example.mapper.CourseMapper;
 import org.example.service.CourseContentService;
-import org.example.service.CourseService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/19
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class CourseContentServiceImpl implements CourseContentService {
@@ -53,6 +48,7 @@ public class CourseContentServiceImpl implements CourseContentService {
      */
     @Override
     public void saveSection(CourseSection section) {
+        section.setStatus(0);
         Date createTime = new Date();
         section.setCreateTime(createTime);
         section.setUpdateTime(createTime);
@@ -66,8 +62,58 @@ public class CourseContentServiceImpl implements CourseContentService {
      */
     @Override
     public void updateSection(CourseSection section) {
-        Date updateTime = new Date();
-        section.setUpdateTime(updateTime);
+        section.setUpdateTime(new Date());
         courseContentMapper.updateSection(section);
     }
+
+    /**
+     * 根据章节id修改章节状态
+     *
+     * @param courseSection
+     */
+    @Override
+    public void updateSectionStatus(CourseSection courseSection) {
+        courseSection.setUpdateTime(new Date());
+        courseContentMapper.updateSectionStatus(courseSection);
+    }
+
+    /**
+     * 新建课时
+     *
+     * @param courseLesson
+     */
+    @Override
+    public void saveLesson(CourseLesson courseLesson) {
+        Date createTime = new Date();
+        courseLesson.setCreateTime(createTime);
+        courseLesson.setUpdateTime(createTime);
+        courseLesson.setStatus(0);
+        BeanUtils.copyProperties(courseLesson, courseLesson);
+        System.out.println("courseLessonVO = " + courseLesson);
+        System.out.println("courseLesson = " + courseLesson);
+        courseContentMapper.saveLesson(courseLesson);
+    }
+
+    /**
+     * 更新课时
+     *
+     * @param courseLesson
+     */
+    @Override
+    public void updateLesson(CourseLesson courseLesson) {
+        courseLesson.setUpdateTime(new Date());
+        courseContentMapper.updateLesson(courseLesson);
+    }
+
+    /**
+     * 更新课时状态
+     *
+     * @param courseLesson
+     */
+    @Override
+    public void updateLessonStatus(CourseLesson courseLesson) {
+        courseLesson.setUpdateTime(new Date());
+        courseContentMapper.updateLessonStatus(courseLesson);
+    }
+
 }

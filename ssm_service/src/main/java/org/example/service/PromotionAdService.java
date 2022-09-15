@@ -4,12 +4,8 @@ import com.github.pagehelper.PageInfo;
 import org.example.domain.PromotionAd;
 import org.example.domain.PromotionAdVO;
 
-
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface PromotionAdService {
 
@@ -28,4 +24,26 @@ public interface PromotionAdService {
      * @param status
      */
     void updatePromotionAdStatus(Integer id, Integer status);
+
+    /**
+     * 根据广告id查询广告信息
+     *
+     * @param id
+     * @return
+     */
+    PromotionAd findPromotionAdById(Integer id);
+
+    /**
+     * 保存广告
+     *
+     * @param promotionAd
+     */
+    void savePromotionAd(PromotionAd promotionAd);
+
+    /**
+     * 修改广告
+     *
+     * @param promotionAd
+     */
+    void updatePromotionAd(PromotionAd promotionAd);
 }

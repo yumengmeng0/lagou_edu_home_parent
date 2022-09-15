@@ -1,15 +1,13 @@
 package org.example.service;
 
 import org.example.domain.Course;
+import org.example.domain.CourseLesson;
 import org.example.domain.CourseSection;
 
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/19
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface CourseContentService {
     /**
@@ -41,4 +39,32 @@ public interface CourseContentService {
      * @param section
      */
     void updateSection(CourseSection section);
+
+    /**
+     * 根据章节id修改章节状态
+     *
+     * @param courseSection
+     */
+    void updateSectionStatus(CourseSection courseSection);
+
+    /**
+     * 新建课时
+     *
+     * @param courseLesson
+     */
+    void saveLesson(CourseLesson courseLesson);
+
+    /**
+     * 更新课时
+     *
+     * @param courseLesson
+     */
+    void updateLesson(CourseLesson courseLesson);
+
+    /**
+     * 更新课时状态
+     *
+     * @param courseLesson
+     */
+    void updateLessonStatus(CourseLesson courseLesson);
 }

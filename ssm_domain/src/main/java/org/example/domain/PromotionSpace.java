@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * 广告位
+ *
+ * @author
  */
 @Data
 public class PromotionSpace {

@@ -1,12 +1,14 @@
 package org.example.controller;
 
-import com.github.pagehelper.PageInfo;
 import org.example.domain.Course;
 import org.example.domain.CourseVO;
 import org.example.domain.ResponseResult;
 import org.example.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 
+
 /**
- * @author: ymm
- * @date: 2022/8/17
- * @version: 1.0.0
- * @description:
+ * 课程
+ * @author
  */
 @RestController
 @RequestMapping("/course")
@@ -46,8 +47,7 @@ public class CourseController {
     @RequestMapping("/findCourseByCondition")
     public ResponseResult findCourseByCondition(@RequestBody CourseVO courseVO) {
         List<Course> courseList = courseService.findCourseByCondition(courseVO);
-        ResponseResult responseResult = new ResponseResult(true, 200, "响应成功", courseList);
-        return responseResult;
+        return new ResponseResult(true, 200, "响应成功", courseList);
     }
 
 
@@ -85,8 +85,7 @@ public class CourseController {
         map.put("fileName", newFileName);
         map.put("filePath", "http://localhost:8080/upload/" + newFileName);
 
-        ResponseResult responseResult = new ResponseResult(true, 200, "图片上传成功", map);
-        return responseResult;
+        return new ResponseResult(true, 200, "图片上传成功", map);
     }
 
     /**
@@ -98,17 +97,13 @@ public class CourseController {
      */
     @RequestMapping("/saveOrUpdateCourse")
     public ResponseResult saveOrUpdateCourse(@RequestBody CourseVO courseVO) throws InvocationTargetException, IllegalAccessException {
-        ResponseResult responseResult = null;
-
         if (courseVO.getId() == null) {
             courseService.saveCourseOrTeacher(courseVO);
-            responseResult = new ResponseResult(true, 200, "新增成功", null);
+            return new ResponseResult(true, 200, "新增成功", null);
         } else {
             courseService.updateCourseOrTeacher(courseVO);
-            responseResult = new ResponseResult(true, 200, "修改成功", null);
+            return new ResponseResult(true, 200, "修改成功", null);
         }
-
-        return responseResult;
     }
 
     /**
@@ -120,9 +115,7 @@ public class CourseController {
     @RequestMapping("/findCourseById")
     public ResponseResult findCourseById(@RequestParam("id") Integer id) {
         CourseVO courseVO = courseService.findCourseById(id);
-
-        ResponseResult responseResult = new ResponseResult(true, 200, "根据id查询课程成功", courseVO);
-        return responseResult;
+        return new ResponseResult(true, 200, "根据id查询课程成功", courseVO);
     }
 
     /**
@@ -134,13 +127,9 @@ public class CourseController {
     @RequestMapping("/updateCourseStatus")
     public ResponseResult updateCourseStatus(@RequestParam("id") Integer id, @RequestParam("status") Integer status) {
         courseService.updateCourseStatus(id, status);
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("status", status);
-
-        ResponseResult responseResult = new ResponseResult(true, 200, "课程状态修改成功", map);
-        return responseResult;
-
+        return new ResponseResult(true, 200, "课程状态修改成功", map);
     }
 
 }

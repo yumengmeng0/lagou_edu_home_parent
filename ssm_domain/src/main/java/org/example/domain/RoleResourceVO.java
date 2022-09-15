@@ -4,12 +4,11 @@ import lombok.Data;
 
 import java.util.List;
 
-
 /**
  * @author
  */
 @Data
-public class RoleMenuVO {
+public class RoleResourceVO {
     private Integer roleId;
-    private List<Integer> menuIdList;
+    private List<Integer> resourceIdList;
 }

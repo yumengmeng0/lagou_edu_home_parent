@@ -5,10 +5,7 @@ import org.example.domain.*;
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface UserMapper {
 
@@ -30,17 +27,17 @@ public interface UserMapper {
     /**
      * 根据用户id查询关联的角色信息
      *
-     * @param userId
+     * @param id
      * @return
      */
-    List<Role> findUserRelationRoleById(Integer userId);
+    List<Role> findUserRelationRoleById(Integer id);
 
     /**
      * 根据用户id清空中间表
      *
-     * @param userId
+     * @param id
      */
-    void deleteUserContextRole(Integer userId);
+    void deleteUserContextRole(Integer id);
 
     /**
      * 分配角色
@@ -72,4 +69,11 @@ public interface UserMapper {
      * @return
      */
     List<Resource> findResourceByRoleId(List<Integer> ids);
+
+    /**
+     * 修改用户状态
+     *
+     * @param userVO
+     */
+    void updateUserStatus(UserVO userVO);
 }

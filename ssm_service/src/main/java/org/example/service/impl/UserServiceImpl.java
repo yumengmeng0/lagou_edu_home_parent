@@ -16,10 +16,7 @@ import java.util.List;
 
 
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,12 +56,12 @@ public class UserServiceImpl implements UserService {
     /**
      * 根据用户id查询关联的角色信息
      *
-     * @param userId
+     * @param id
      * @return
      */
     @Override
-    public List<Role> findUserRelationRoleById(Integer userId) {
-        return userMapper.findUserRelationRoleById(userId);
+    public List<Role> findUserRelationRoleById(Integer id) {
+        return userMapper.findUserRelationRoleById(id);
     }
 
     /**
@@ -74,7 +71,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void userContextRole(UserVO userVO) {
-        Integer userId = userVO.getUserId();
+        Integer userId = userVO.getId();
         userMapper.deleteUserContextRole(userId);
         Date createdTime = new Date();
 
@@ -93,9 +90,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult getUserPermissions(Integer userId) {
+    public ResponseResult getUserPermissions(Integer id) {
         // 1.获取当前用户拥有的所有的角色
-        List<Role> roleList = userMapper.findUserRelationRoleById(userId);
+        List<Role> roleList = userMapper.findUserRelationRoleById(id);
         // 2.获取角色id保存到list中
         ArrayList<Integer> roleIds = new ArrayList<>();
         for (Role role : roleList) {
@@ -118,5 +115,15 @@ public class UserServiceImpl implements UserService {
         return new ResponseResult(true, 200, "获取用户权限信息成功", map);
     }
 
+    /**
+     * 修改用户状态
+     *
+     * @param userVO
+     */
+    @Override
+    public void updateUserStatus(UserVO userVO) {
+        userVO.setUpdateTime(new Date());
+        userMapper.updateUserStatus(userVO);
+    }
 
 }

@@ -1,16 +1,12 @@
 package org.example.mapper;
 
 
-import org.example.domain.Role;
-import org.example.domain.RoleMenuRelation;
+import org.example.domain.*;
 
 import java.util.List;
 
 /**
- * @author: ymm
- * @date: 2022/8/22
- * @version: 1.0.0
- * @description:
+ * @author
  */
 public interface RoleMapper {
 
@@ -30,6 +26,11 @@ public interface RoleMapper {
      */
     List<Integer> findMenuByRoleId(Integer roleId);
 
+    /**
+     * @param roleId
+     * @return
+     */
+    List<Resource> findResourceListByRoleId(Integer roleId);
 
     /**
      * 根据角色id清空中间表关联关系
@@ -40,6 +41,8 @@ public interface RoleMapper {
 
     /**
      * 为角色分配菜单
+     *
+     * @param roleMenuRelation
      */
     void allocateRoleContextMenu(RoleMenuRelation roleMenuRelation);
 
@@ -49,5 +52,57 @@ public interface RoleMapper {
      * @param roleId
      */
     void deleteRole(Integer roleId);
+
+    /**
+     * 添加角色
+     *
+     * @param role
+     */
+    void saveRole(Role role);
+
+    /**
+     * 修改角色
+     *
+     * @param role
+     */
+    void updateRole(Role role);
+
+    /**
+     * 清空角色表与资源表的关系
+     *
+     * @param roleId
+     */
+    void deleteRoleContextResourceByRoleId(Integer roleId);
+
+    /**
+     * 为角色分配资源
+     *
+     * @param roleResourceRelation
+     */
+    void allocateRoleContextResource(RoleResourceRelation roleResourceRelation);
+
+    /**
+     * 根据资源id删除中间表
+     *
+     * @param resourceId
+     */
+    void deleteRoleContextResource(Integer resourceId);
+
+
+    /**
+     * 根据id查询角色拥有的资源分类数据
+     *
+     * @param roleId
+     * @return
+     */
+    List<Resource> findRoleHaveResource(Integer roleId);
+
+    /**
+     * 根据id查询角色拥有的资源数据
+     *
+     * @param roleId
+     * @return
+     */
+    List<ResourceCategory> findRoleHaveResourceCategory(Integer roleId);
 
 }
