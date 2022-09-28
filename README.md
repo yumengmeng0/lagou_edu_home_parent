@@ -65,5 +65,9 @@ https://blog.csdn.net/qq_43842093/article/details/121728251
     2. 直接接收参数，dao层使用@Param映射到对应字段
     
     
-# 
+# Circular placeholder reference 'jdbc.url' in property definitions
+
+https://blog.csdn.net/xiaoyaotan_111/article/details/76422923
+
+
 

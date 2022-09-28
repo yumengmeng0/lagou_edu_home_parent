@@ -9,7 +9,6 @@ import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+
 /**
- * @author: ymm
- * @date: 2022/8/21
- * @version: 1.0.0
- * @description:
+ * @author
  */
 @RestController
 @RequestMapping("/user")
@@ -39,7 +36,6 @@ public class UserController {
      */
     @RequestMapping("/findAllUserByPage")
     public ResponseResult findAllUserByPage(@RequestBody UserVO userVO) {
-        System.out.println("userVO = " + userVO);
         PageInfo<User> pageInfo = userService.findAllUserByPage(userVO);
         return new ResponseResult(true, 200, "分页条件查询用户成功", pageInfo);
     }

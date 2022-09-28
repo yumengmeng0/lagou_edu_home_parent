@@ -24,7 +24,6 @@
         <mybatis.version>3.5.10</mybatis.version>
     </properties>
 
-
     <!-- 锁定jar版本 -->
     <dependencyManagement>
         <dependencies>
